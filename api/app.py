@@ -81,6 +81,7 @@ sentry_init()
 CORS(app)
 # Initialize database session
 DATABASE_URL = os.getenv("DATABASE_URL", "").replace("postgres://", "postgresql://")
+logger.info(f"{DATABASE_URL=}")
 engine = create_engine(os.getenv(DATABASE_URL))
 Session = sessionmaker(bind=engine)
 session = Session()
