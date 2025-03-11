@@ -79,9 +79,9 @@ app.wsgi_app = TimeoutMiddleware(app.wsgi_app, timeout=10)
 
 sentry_init()
 CORS(app)
-os.system("env")
 # Initialize database session
-engine = create_engine(os.getenv("DATABASE_URL"))
+DATABASE_URL = os.getenv("DATABASE_URL", "").replace("postgres://", "postgresql://")
+engine = create_engine(os.getenv(DATABASE_URL))
 Session = sessionmaker(bind=engine)
 session = Session()
 Base.metadata.create_all(engine)
